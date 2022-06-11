@@ -1,14 +1,19 @@
 async function start() {
-  let rand = Math.floor(Math.random() * 151);
-  const response = await fetch(
-    "https://pokeapi.co/api/v2/pokemon/" + rand + "/"
-  );
-  const data = await response.json();
-  console.log(data);
-  renderPokemon();
+  try {
+    let rand = Math.floor(Math.random() * 151);
+    const response = await fetch(
+      "https://pokeapi.co/api/v2/pokemon/" + rand + "/"
+    );
+    const data = await response.json();
+    renderPokemon(data);
+  } catch (e) {
+    console.log("There was a problem fetching pokemons.");
+  }
+}
+start();
 
-  function renderPokemon() {
-    document.getElementById("pokemon").innerHTML = `
+function renderPokemon(data) {
+  document.getElementById("pokemon").innerHTML = `
     <div class="flex">
     <div class="card">
     <div class="img-container">
@@ -24,7 +29,4 @@ async function start() {
        </div>
 
         `;
-  }
 }
-
-start();
